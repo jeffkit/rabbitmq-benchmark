@@ -27,7 +27,8 @@ public class Producer {
 		byte[] data = BytesMaker.make1k();
 		boolean durable = false;
 		String queue = "single";
-
+		int count = 100000;
+		
 		if (args.length > 0){
 			queue = args[0];
 		}
@@ -41,11 +42,15 @@ public class Producer {
 			durable = Boolean.valueOf(args[2]);
 		}
 		
+		if (args.length > 3){
+			count = Integer.valueOf(args[3]);
+		}
+		
 		BasicProperties props = durable ? MessageProperties.PERSISTENT_TEXT_PLAIN : null;
 		
 		channel.queueDeclare(queue, durable, false, false, null);
 		
-		int count = 100000;
+		
 		long start = System.currentTimeMillis();
 		for (int i = 0 ; i < count/10000 ; i ++){
 			long inner_start = System.currentTimeMillis();
@@ -56,7 +61,7 @@ public class Producer {
 		}
 		long end = System.currentTimeMillis();
 		long time = end - start;
-		System.out.println("It takes " + time + " millseconds to send 100000 message to queue");
+		System.out.println("It takes " + time + " millseconds to send " + count + " message to queue");
 		channel.close();
 		connection.close();
 	}

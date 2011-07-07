@@ -10,12 +10,13 @@ rabbitmq-client.jar
 一、入队列测试命令：
 cd rabbitmq-benchmark/bin/
 java -cp .:../lib/commons-io-1.2.jar:../lib/commons-cli-1.1.jar:../lib/rabbitmq-client.jar info.jeffkit.rabbitmq.benchmark.Producer
-接受下面三个参数：
+接受下面四个参数：
 
 1、队列名，默认为single。
 2、每条消息大小，，默认值为1kByte。
 3、消息是否持久化，默认为不持久化。
-使用示例：Producer myqueue 1024 true
+4、发送消息总条数，默认为10万条消息。
+使用示例：Producer myqueue 1024 true 100000
 
 二、出队测试命令：
 cd rabbitmq-benchmark/bin/
